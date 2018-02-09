@@ -9,11 +9,11 @@ void victoire(int val ) {
 	char *cmd = NULL;
 
 	if (system("ponysay --help > /dev/null") == 0) {
-		cmd = g_strdup_printf ("ponysay BRAVO VOUS AVEZ TROUVER LE NOMBRE MAGIC: %d", val);
+		cmd = g_strdup_printf ("ponysay BRAVO VOUS AVEZ TROUVE LE NOMBRE MAGIQUE: %d", val);
 		system(cmd);
 		g_free(cmd);
 	} else if (system("cowsay --help > /dev/null") == 0) {
-		cmd = g_strdup_printf ("cowsay BRAVO VOUS AVEZ TROUVER LE NOMBRE MAGIC: %d", val);
+		cmd = g_strdup_printf ("cowsay BRAVO VOUS AVEZ TROUVE LE NOMBRE MAGIQUE: %d", val);
 		system(cmd);
 		g_free(cmd);
 	}
@@ -23,6 +23,9 @@ bool verifier(int nb, int magic) {
 	bool check = false;
 	char *msg = NULL;
 	
+	if (system("ponysay --help > /dev/null") || system("sl --help > /dev/null"))
+		return false;
+
 	if (nb == magic) {
 		victoire(magic);
 		check = true;
@@ -50,7 +53,7 @@ int main() {
 	magic = ((rand() % 100) + 1);
 	system("clear");
 	while(!is_true) {
-		printf("\nQuel est le nombre magic: ");
+		printf("\nQuel est le nombre magique: ");
 		scanf("%d", &nb);
 		is_true = verifier(nb, magic);
 	}
